@@ -67,7 +67,7 @@ function setupEventListeners() {
 
 async function loadPosts() {
   try {
-    const response = await fetch(`/.netlify/functions/get-posts?user=${encodeURIComponent(state.user)}`);
+    const response = await fetch(`/api/get-posts?user=${encodeURIComponent(state.user)}`);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -315,7 +315,7 @@ async function markAsPublished(post) {
   btn.textContent = 'Salvando...';
 
   try {
-    const response = await fetch('/.netlify/functions/update-status', {
+    const response = await fetch('/api/update-status', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
