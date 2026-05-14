@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Editorial · pagou.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body class="login-page">
+  <div class="bg-grain"></div>
+
+  <main class="login-container">
+    <header class="login-header">
+      <div class="brand-mark">
+        <span class="brand-dot"></span>
+        <span class="brand-name">pagou.ai</span>
+      </div>
+      <h1 class="login-title">
+        <span class="title-eyebrow">Sistema Editorial</span>
+        <span class="title-main">Quem está postando hoje?</span>
+      </h1>
+      <p class="login-subtitle">Selecione seu perfil para ver sua agenda</p>
+    </header>
+
+    <div class="users-grid">
+      <button class="user-card" data-user="Lais">
+        <div class="user-avatar avatar-lais">L</div>
+        <div class="user-info">
+          <span class="user-name">Lais</span>
+          <span class="user-role">Social Media · pagou.ai</span>
+        </div>
+        <span class="user-arrow">→</span>
+      </button>
+
+      <button class="user-card" data-user="Nadia">
+        <div class="user-avatar avatar-nadia">N</div>
+        <div class="user-info">
+          <span class="user-name">Nadia</span>
+          <span class="user-role">Diretora de Vendas · Instagram + LinkedIn</span>
+        </div>
+        <span class="user-arrow">→</span>
+      </button>
+
+      <button class="user-card" data-user="Bruno">
+        <div class="user-avatar avatar-bruno">B</div>
+        <div class="user-info">
+          <span class="user-name">Bruno</span>
+          <span class="user-role">Vendedor · Instagram</span>
+        </div>
+        <span class="user-arrow">→</span>
+      </button>
+
+      <button class="user-card" data-user="Ruan">
+        <div class="user-avatar avatar-ruan">R</div>
+        <div class="user-info">
+          <span class="user-name">Ruan</span>
+          <span class="user-role">Vendedor · Instagram</span>
+        </div>
+        <span class="user-arrow">→</span>
+      </button>
+
+      <button class="user-card" data-user="Duda">
+        <div class="user-avatar avatar-duda">D</div>
+        <div class="user-info">
+          <span class="user-name">Duda</span>
+          <span class="user-role">Vendedora · Instagram</span>
+        </div>
+        <span class="user-arrow">→</span>
+      </button>
+    </div>
+
+    <footer class="login-footer">
+      <span class="footer-dot"></span>
+      <span>Just keep going</span>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.user-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const user = card.dataset.user;
+        sessionStorage.setItem('currentUser', user);
+        window.location.href = `dashboard.html?user=${encodeURIComponent(user)}`;
+      });
+    });
+
+    // Stagger entrance animation
+    document.querySelectorAll('.user-card').forEach((card, i) => {
+      card.style.animationDelay = `${0.2 + i * 0.08}s`;
+    });
+  </script>
+</body>
+</html>

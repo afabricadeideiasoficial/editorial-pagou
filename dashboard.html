@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda · Sistema Editorial pagou.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body class="dashboard-page">
+  <div class="bg-grain"></div>
+
+  <header class="dashboard-header">
+    <div class="header-content">
+      <a href="index.html" class="header-back" aria-label="Voltar">←</a>
+      <div class="header-brand">
+        <span class="brand-dot"></span>
+        <span class="brand-name">pagou.ai</span>
+      </div>
+      <button class="header-logout" id="logoutBtn" aria-label="Trocar usuário">Trocar</button>
+    </div>
+    <div class="header-greeting">
+      <span class="greeting-eyebrow" id="greetingDate"></span>
+      <h1 class="greeting-title">
+        Olá, <span id="userName">—</span>
+      </h1>
+      <p class="greeting-subtitle" id="greetingStats">Carregando sua agenda...</p>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="filters">
+      <button class="filter-chip active" data-filter="all">Todos</button>
+      <button class="filter-chip" data-filter="upcoming">Próximos</button>
+      <button class="filter-chip" data-filter="today">Hoje</button>
+      <button class="filter-chip" data-filter="published">Publicados</button>
+    </div>
+
+    <div class="posts-container" id="postsContainer">
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Carregando posts...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal para detalhes do post -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">×</button>
+      <div class="modal-content" id="modalContent">
+        <!-- preenchido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de feedback -->
+  <div class="toast" id="toast" hidden>
+    <span class="toast-icon">✓</span>
+    <span class="toast-message" id="toastMessage"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
