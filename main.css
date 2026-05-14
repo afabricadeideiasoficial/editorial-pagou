@@ -633,17 +633,21 @@ a {
    MODAL
    ============================================ */
 .modal-backdrop {
+  display: none;
   position: fixed;
   inset: 0;
   background: rgba(30, 27, 75, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  display: flex;
   align-items: flex-end;
   justify-content: center;
   z-index: 100;
   padding: 0;
   animation: fadeIn 0.2s ease-out;
+}
+
+.modal-backdrop.open {
+  display: flex;
 }
 
 @media (min-width: 640px) {

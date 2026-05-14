@@ -283,12 +283,12 @@ function openModal(post) {
 
   document.getElementById('closeModalBtn').addEventListener('click', closeModal);
 
-  document.getElementById('modalBackdrop').hidden = false;
+  document.getElementById('modalBackdrop').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  document.getElementById('modalBackdrop').hidden = true;
+  document.getElementById('modalBackdrop').classList.remove('open');
   document.body.style.overflow = '';
   state.currentPost = null;
 }
