@@ -249,8 +249,8 @@ function openModal(post) {
 
     ${post.observacoes ? `
       <div class="modal-section">
-        <div class="modal-section-label"><span>Observações</span></div>
-        <div class="modal-obs">${escapeHtml(post.observacoes)}</div>
+        <div class="modal-section-label"><span>Mídia & Observações</span></div>
+        <div class="modal-obs">${renderObservacoesWithLinks(post.observacoes)}</div>
       </div>
     ` : ''}
 
@@ -395,4 +395,52 @@ function escapeHtml(str) {
 function escapeAttr(str) {
   if (str == null) return '';
   return String(str).replace(/[^a-zA-Z0-9_\-]/g, '_');
+}
+
+// Converte URLs no texto em botões "Ver mídia" clicáveis
+function renderObservacoesWithLinks(text) {
+  if (!text) return '';
+
+  // Reconhece apenas URLs http(s)://... seguras pra renderizar como link
+  const urlRegex = /(https?:\/\/[^\s|<>"']+)/g;
+  const urls = [];
+  let match;
+  while ((match = urlRegex.exec(text)) !== null) {
+    urls.push({ url: match[1], index: match.index });
+  }
+
+  if (urls.length === 0) {
+    return `<div class="modal-obs-text">${escapeHtml(text)}</div>`;
+  }
+
+  // Para cada URL, tenta achar o "label" antes dela (padrão: "🔗 Label: URL")
+  const buttons = urls.map(({ url, index }) => {
+    // Pega até 40 chars antes da URL
+    const before = text.substring(Math.max(0, index - 40), index);
+    // Procura padrão "🔗 LABEL:" ou apenas "LABEL:"
+    const labelMatch = before.match(/(?:🔗\s*)?([A-Za-zÀ-ÿ][^:|]*?):\s*$/);
+    let label = labelMatch ? labelMatch[1].trim() : 'Ver mídia';
+
+    // Capitaliza primeira letra
+    label = label.charAt(0).toUpperCase() + label.slice(1);
+
+    return `<a class="media-btn" href="${url}" target="_blank" rel="noopener">
+      <span class="media-btn-icon">📁</span>
+      <span class="media-btn-label">${escapeHtml(label)}</span>
+    </a>`;
+  }).join('');
+
+  // Extrai texto restante (sem os pares label:URL) pra mostrar como notas
+  let notesText = text;
+  // Remove os padrões "🔗 Label: URL" e URLs avulsas
+  notesText = notesText.replace(/🔗\s*[^:|]+?:\s*https?:\/\/[^\s|<>"']+/g, '');
+  notesText = notesText.replace(/https?:\/\/[^\s|<>"']+/g, '');
+  // Remove separadores "|" sobrando
+  notesText = notesText.replace(/\s*\|\s*/g, ' ').replace(/\s+/g, ' ').trim();
+
+  const notesHtml = notesText
+    ? `<div class="modal-obs-text">${escapeHtml(notesText)}</div>`
+    : '';
+
+  return `<div class="media-btns">${buttons}</div>${notesHtml}`;
 }
